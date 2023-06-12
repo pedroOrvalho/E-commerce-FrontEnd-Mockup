@@ -4,8 +4,8 @@ The front end project is to practice React with TypeScript and Redux. Completing
 
 ### How to run project
 
-Step 1: yarn
-Step 2: yarn start
+1. Step 1: yarn
+2. Step 2: yarn start
 
 ### Logic Requirements (8 points)
 
@@ -37,5 +37,5 @@ Step 2: yarn start
 
 ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 
-4. Sorting by product name
-5. change theme
+4. Sorting by product name/price
+5. Change theme
