@@ -42,14 +42,21 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 
 ### Screenshots
 
-![](./screenshots/homePage.png)
+1. Home page
+   ![](./screenshots/homePage.png)
+
+2. Footer
 
 ![](./screenshots/footer.png)
 
-![](./screenshots/productList.png)
+3. Product list
+   ![](./screenshots/productList.png)
 
-![](./screenshots/productDetail.png)
+4. Product detail
+   ![](./screenshots/productDetail.png)
 
-![](./screenshots/wishList.png)
+5. Wish list
+   ![](./screenshots/wishList.png)
 
-![](./screenshots/cart.png)
+6. Cart
+   ![](./screenshots/cart.png)
