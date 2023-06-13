@@ -39,3 +39,17 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 
 1. Sorting by product name/price
 2. Change theme
+
+### Screenshots
+
+![](./screenshots/homePage.png)
+
+![](./screenshots/footer.png)
+
+![](./screenshots/productList.png)
+
+![](./screenshots/productDetail.png)
+
+![](./screenshots/wishList.png)
+
+![](./screenshots/cart.png)
