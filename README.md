@@ -37,5 +37,5 @@ The front end project is to practice React with TypeScript and Redux. Completing
 
 ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 
-4. Sorting by product name/price
-5. Change theme
+1. Sorting by product name/price
+2. Change theme
