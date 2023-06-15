@@ -2,7 +2,13 @@
 
 .nav_logo_container {
   display: flex;
-  
 }
 
-nav_cart_container{}
+.products_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.productItem_container img {
+  width: 200px;
+}

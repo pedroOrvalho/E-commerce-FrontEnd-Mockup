@@ -9,14 +9,18 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { Product } from "../types/type";
 
 export default function Wishlist() {
   const [open, setOpen] = React.useState<boolean>(false);
+  const favoritesList = useSelector((state: RootState) => state.productsList.favoritesList);
+  console.log(favoritesList);
 
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      setOpen(open);
-    };
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    setOpen(open);
+  };
 
   const list = (
     <Box
@@ -26,13 +30,13 @@ export default function Wishlist() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text) => (
-          <ListItem key={text} disablePadding>
+        {favoritesList.map((favorite: Product) => (
+          <ListItem key={favorite.id} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={favorite.title} />
             </ListItemButton>
           </ListItem>
         ))}

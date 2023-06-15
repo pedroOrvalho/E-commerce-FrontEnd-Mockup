@@ -1,22 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import ProductsItem from "../components/ProductsItem";
+
 import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsData } from "../redux/thunk/productThunk";
-import ProductsItem from "../components/ProductsItem";
+import { setFavoritesList } from "../redux/slices/productsSlice";
+
+import { Product } from "../types/type";
 
 export default function Products() {
-  const productsList = useSelector(
-    ({ productsList }: RootState) => productsList.products
-  );
-  const isLoading = useSelector(
-    ({ productsList }: RootState) => productsList.isLoading
-  );
-
-  const dispatch = useDispatch<AppDispatch>();
+  const [favorites, setFavorites] = useState<Product[]>([]);
+  const productsList = useSelector(({ productsList }: RootState) => productsList.products);
+  const isLoading = useSelector(({ productsList }: RootState) => productsList.isLoading);
+  const dispatchThunk = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProductsData());
-  }, [dispatch]);
+    dispatch(setFavoritesList(favorites));
+  }, [dispatch, favorites]);
+
+  useEffect(() => {
+    dispatchThunk(fetchProductsData());
+  }, [dispatchThunk]);
 
   if (isLoading) {
     return (
@@ -26,9 +32,14 @@ export default function Products() {
     );
   }
   return (
-    <div>
+    <div className="products_container">
       {productsList.map((product) => (
-        <ProductsItem key={product.id} product={product} />
+        <ProductsItem
+          key={product.id}
+          product={product}
+          favorites={favorites}
+          setFavorites={setFavorites}
+        />
       ))}
     </div>
   );
