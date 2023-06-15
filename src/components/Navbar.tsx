@@ -84,8 +84,10 @@ export default function Navbar() {
           <Link to="/products">
             <p>Products</p>
           </Link>
-          <Wishlist/>
-          <p>Cart</p>
+          <Wishlist />
+          <Link to="/products/checkout">
+            <p>Cart</p>
+          </Link>
           <MaterialUISwitch />
         </Stack>
       </Paper>

@@ -6,6 +6,7 @@ type InitialState = {
   isLoading: boolean;
   product: Product;
   favoritesList: Product[];
+  cartList: Product[];
 };
 
 const initialState: InitialState = {
@@ -23,6 +24,7 @@ const initialState: InitialState = {
     images: [],
   },
   favoritesList: [],
+  cartList: [],
 };
 
 const productsSlice = createSlice({
@@ -40,9 +42,12 @@ const productsSlice = createSlice({
     setFavoritesList: (state, { payload }: PayloadAction<Product[]>) => {
       state.favoritesList = payload;
     },
+    setCartList: (state, { payload }: PayloadAction<Product[]>) => {
+      state.cartList = payload;
+    },
   },
 });
 
-export const { fetchProducts, fetchProductDetail, setFavoritesList } = productsSlice.actions;
+export const { fetchProducts, fetchProductDetail, setFavoritesList, setCartList } = productsSlice.actions;
 const productsReducer = productsSlice.reducer;
 export default productsReducer;
