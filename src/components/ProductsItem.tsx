@@ -1,58 +1,70 @@
 import { Link } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
 
-import { IconButton } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { ThemeProvider, createTheme } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { Box, Paper } from "@mui/material";
 
 import { Product } from "../types/type";
 
 type Props = {
   product: Product;
-  favorites: Product[];
-  setFavorites: Dispatch<SetStateAction<Product[]>>;
-  cart: Product[];
-  setCart: Dispatch<SetStateAction<Product[]>>;
 };
 
-export default function ProductsItem({ product, favorites, setFavorites, cart, setCart }: Props) {
-  const isAlreadyFavorite = favorites.some((favorite) => favorite.id === product.id);
-  const isInCart = cart.some((item) => item.id === product.id);
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Lato", "sans-serif"].join(","),
+  },
+  components: {
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: "body1" },
+          style: {
+            fontWeight: "bold",
+            color: "black",
+          },
+        },
+        {
+          props: { variant: "body2" },
+          style: {
+            color: "hsla(0, 0%, 0%, 0.65)",
+          },
+        },
+      ],
+    },
+  },
+});
 
-  function handleAddToCart() {
-    if (isInCart) {
-      setCart((prevCart) => prevCart.filter((cartItem) => cartItem.id !== product.id));
-    } else {
-      setCart((prevCart) => [...prevCart, product]);
-    }
-  }
-
-  function handleAddToFavorites() {
-    if (isAlreadyFavorite) {
-      setFavorites((prevFavorites) => prevFavorites.filter((favorite) => favorite.id !== product.id));
-    } else {
-      setFavorites((prevFavorites) => [...prevFavorites, product]);
-    }
-  }
-
+export default function ProductsItem({ product }: Props) {
   return (
-    <div className="productItem_container">
-      <img src={product.thumbnail} alt={product.description} />
-      <p>{product.title}</p>
-      <p>{product.price}€</p>
-      <Link to={`/products/${product.id}`}>
-        <button>Detail</button>
-      </Link>
-      <IconButton
-        aria-label="add to favorites"
-        color={isAlreadyFavorite ? "error" : "default"}
-        onClick={handleAddToFavorites}
-      >
-        <FavoriteIcon />
-      </IconButton>
-      <IconButton aria-label="add to cart" color={isInCart ? "primary" : "default"} onClick={handleAddToCart}>
-        <ShoppingCartIcon />
-      </IconButton>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Paper variant="outlined" sx={{ height: "100%", width: "100%" }}>
+        <Link to={`/products/${product.id}`}>
+          <Box sx={{ margin: "1rem 1rem" }}>
+            <div className="image-container">
+              <img
+                className="product_img"
+                src={product.thumbnail}
+                alt={product.description}
+              />
+            </div>
+          </Box>
+        </Link>
+        <Box sx={{ margin: "2rem 2rem" }}>
+          <Typography sx={{ marginBottom: "0.5rem" }} variant="body1">
+            {product.title}
+          </Typography>
+          <Typography variant="body2">
+            <span>Brand:</span> {product.brand}
+          </Typography>
+          <Typography variant="body2">
+            <span>Category:</span> {product.category}
+          </Typography>
+          <Typography sx={{ marginTop: "1rem" }} variant="body1">
+            {product.price} kr
+          </Typography>
+        </Box>
+      </Paper>
+    </ThemeProvider>
   );
 }

@@ -1,8 +1,23 @@
-import { Link } from "react-router-dom";
 import logo from "../images/Color logo - no background.png";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { Link } from "react-router-dom";
 
-import { Box, Paper, Stack, Switch, styled } from "@mui/material";
 import Wishlist from "./Wishlist";
+
+import {
+  Badge,
+  Box,
+  Button,
+  Paper,
+  Stack,
+  Switch,
+  ThemeProvider,
+  createTheme,
+  styled,
+} from "@mui/material";
+
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -51,7 +66,24 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "hsla(0, 0%, 0%, 1)",
+    },
+  },
+  typography: {
+    fontFamily: ["Oswald", "sans-serif"].join(","),
+    fontSize: 14,
+    fontWeightMedium: 400,
+  },
+});
+
 export default function Navbar() {
+  const cartListLength = useSelector(
+    (state: RootState) => state.productsList.cartList.length
+  );
+
   return (
     <Box
       component="nav"
@@ -62,32 +94,65 @@ export default function Navbar() {
         "& > :not(style)": {
           m: 1,
           width: 1,
-          height: 75,
+          height: 90,
           marginTop: 0,
         },
         alignItems: "center",
       }}
     >
-      <Paper sx={{ display: "flex", justifyContent: "space-between" }}>
-        <div className="nav_logo_container">
-          <img className="logo" src={logo} alt="logo" width={"250"} />
-          <Stack direction={"row"} spacing={3} alignItems={"center"}>
-            <Link to="/">
-              <p>Home</p>
-            </Link>
-            <p>Brand</p>
-            <p>Sustainability</p>
-            <p>About Us</p>
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <ThemeProvider theme={theme}>
+          <div className="nav_logo_container">
+            <img className="logo" src={logo} alt="logo" />
+          </div>
+          <Stack
+            direction={"row"}
+            spacing={3}
+            alignItems={"center"}
+            sx={{ marginTop: "1.5rem" }}
+          >
+              <Link to="/" className="link-no-style ">
+            <Button variant="text">
+                Home
+            </Button>
+              </Link>
+              <Link to="/brand" className="link-no-style ">
+            <Button variant="text">
+                Brand
+            </Button>
+              </Link>
+              <Link to="/sustainability" className="link-no-style ">
+            <Button variant="text">
+                Sustainability
+            </Button>
+              </Link>
+              <Link to="/aboutUs" className="link-no-style ">
+            <Button variant="text">
+                About Us
+            </Button>
+              </Link>
           </Stack>
-        </div>
-        <Stack direction={"row"} spacing={3} alignItems={"center"}>
-          <Link to="/products">
-            <p>Products</p>
-          </Link>
+        </ThemeProvider>
+        <Stack
+          direction={"row"}
+          spacing={0}
+          alignItems={"center"}
+          marginRight={"2rem"}
+        >
           <Wishlist />
-          <Link to="/products/checkout">
-            <p>Cart</p>
-          </Link>
+          <Button sx={{ paddingLeft: "0", marginRight: "1rem" }}>
+            <Link to="/products/checkout" className="link-no-style ">
+              <Badge badgeContent={cartListLength} sx={{ color: "black" }}>
+                <ShoppingCartCheckoutIcon sx={{ color: "black" }} />
+              </Badge>
+            </Link>
+          </Button>
           <MaterialUISwitch />
         </Stack>
       </Paper>

@@ -1,14 +1,103 @@
+/* -------------------------------- general --------------------------------*/
+.App {
+  background-color: hsla(240, 1%, 85%, 0.691);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.link-no-style {
+  color: inherit;
+  text-decoration: none;
+  letter-spacing: 0.2rem;
+}
+
+.slide_img_container {
+  height: 40rem;
+}
+
+.slide_img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  image-orientation: center;
+}
+
+span {
+  font-weight: 600;
+}
+
 /* -------------------------------- navbar --------------------------------*/
 
 .nav_logo_container {
   display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 1rem;
 }
 
+.logo {
+  width: 14rem;
+  height: auto;
+  opacity: 0.92;
+}
+/* -------------------------------- products --------------------------------*/
 .products_container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 1rem 4rem;
+  gap: 3rem 2rem;
+  height: 100%;
 }
 
-.productItem_container img {
-  width: 200px;
+.product_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-container {
+  width: 100%;
+  position: relative;
+}
+
+.image-container::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* -------------------------------- vertical slider --------------------------------*/
+
+.product_slider_container {
+  display: flex;
+  height: 40rem;
+}
+
+.vertical_slider_container {
+  width: 6rem;
+  height: 100%;
+  margin-top: -7px;
+}
+
+.verticalSlider_img_container {
+  width: 100%;
+  height: 100%;
+}
+
+.vertical_slider_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

@@ -65,12 +65,12 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 **Logic Requirements (8 points)**
 - [√] Fetch and display all products
 - [ ] Search products by name
-- [ ] Get product details
-- [ ] Show product details when image or button is clicked
-- [ ] Add products to Favorite page
-- [ ] Change favorite icon color when a product is added to Favorite
-- [ ] Display loading page while fetching data
-- [ ] Deploy the project
+- [√] Get product details
+- [√] Show product details when image or button is clicked
+- [√] Add products to Favorite page
+- [√] Change favorite icon color when a product is added to Favorite
+- [√] Display loading page while fetching data
+- [√] Deploy the project
 
 **Extra requirements (2 points)**
 - [ ] Implement sorting by product name/price
