@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 import Box from "@mui/material/Box";
@@ -9,25 +9,30 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import { Product } from "../types/type";
-import { Badge } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
+import { setCartList, setFavoriteList } from "../redux/slices/productsSlice";
 
 export default function Wishlist() {
   const [open, setOpen] = React.useState<boolean>(false);
-  const favoritesList = useSelector(
-    (state: RootState) => state.productsList.favoritesList
-  );
+  const favoritesList = useSelector((state: RootState) => state.productsList.favoritesList);
+  const cartList = useSelector((state: RootState) => state.productsList.cartList);
+  const dispatch = useDispatch();
 
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      setOpen(open);
-    };
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    setOpen(open);
+  };
 
+  function handleAddToCart(product: Product) {
+    const newCart = [...cartList, product];
+    dispatch(setCartList(newCart));
+    const newFavoriteList = favoritesList.filter((cartItem) => cartItem.id !== product.id);
+    dispatch(setFavoriteList(newFavoriteList));
+  }
   const list = (
     <Box
       sx={{ width: 350 }}
@@ -39,10 +44,11 @@ export default function Wishlist() {
         {favoritesList.map((favorite: Product) => (
           <ListItem key={favorite.id} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={favorite.title} />
+              <img src={favorite.images[0]} alt="pic" width={"50px"}></img>
+              <ListItemText sx={{ marginLeft: "10px" }} primary={favorite.title} />
+              <IconButton onClick={() => handleAddToCart(favorite)}>
+                <AddShoppingCartIcon />
+              </IconButton>
             </ListItemButton>
           </ListItem>
         ))}
@@ -54,10 +60,7 @@ export default function Wishlist() {
   return (
     <Box>
       <Button onClick={toggleDrawer(true)} sx={{ paddingRight: "0" }}>
-        <Badge
-          variant="dot"
-          color={favoritesList.length > 0 ? "error" : undefined}
-        >
+        <Badge variant="dot" color={favoritesList.length > 0 ? "error" : undefined}>
           <FavoriteBorderIcon sx={{ color: "black" }} />
         </Badge>
       </Button>

@@ -39,7 +39,7 @@ const productsSlice = createSlice({
       state.product = payload;
       state.isLoading = false;
     },
-    setFavoritesList: (state, { payload }: PayloadAction<Product[]>) => {
+    setFavoriteList: (state, { payload }: PayloadAction<Product[]>) => {
       state.favoritesList = payload;
     },
     setCartList: (state, { payload }: PayloadAction<Product[]>) => {
@@ -48,6 +48,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const { fetchProducts, fetchProductDetail, setFavoritesList, setCartList } = productsSlice.actions;
+export const { fetchProducts, fetchProductDetail, setFavoriteList, setCartList } =
+  productsSlice.actions;
 const productsReducer = productsSlice.reducer;
 export default productsReducer;

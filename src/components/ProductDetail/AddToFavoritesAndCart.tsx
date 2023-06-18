@@ -1,64 +1,84 @@
+import { setCartList, setFavoriteList } from "../../redux/slices/productsSlice";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Box, IconButton } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import { Product } from "../../types/type";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 type Props = {
   product: Product;
-  favorites: Product[];
-  setFavorites: React.Dispatch<React.SetStateAction<Product[]>>;
-  cart: Product[];
-  setCart: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
-export default function ProductDetailInfo({
-  product,
-  favorites,
-  setFavorites,
-  cart,
-  setCart,
-}: Props) {
-  const isInCart = cart.some((item) => item.id === product.id);
-  const isAlreadyFavorite = favorites.some(
-    (favorite) => favorite.id === product.id
-  );
+export default function ProductDetailInfo({ product }: Props) {
+  const dispatch = useDispatch();
+  const favoriteList = useSelector((state: RootState) => state.productsList.favoritesList);
+  const cartList = useSelector((state: RootState) => state.productsList.cartList);
+  const isAlreadyFavorite = favoriteList.some((favoriteItem) => favoriteItem.id === product.id);
+  const isInCart = cartList.some((item) => item.id === product.id);
 
-  function handleAddToCart() {
-    if (isInCart) {
-      setCart((prevCart) =>
-        prevCart.filter((cartItem) => cartItem.id !== product.id)
-      );
-    } else {
-      setCart((prevCart) => [...prevCart, product]);
-    }
-  }
-
-  function handleAddToFavorites() {
+  function handleAddToFavorites(favoriteProduct: Product) {
     if (isAlreadyFavorite) {
-      setFavorites((prevFavorites) =>
-        prevFavorites.filter((favorite) => favorite.id !== product.id)
-      );
+      const newFavoriteList = favoriteList.filter((favorite) => favorite.id !== favoriteProduct.id);
+      dispatch(setFavoriteList(newFavoriteList));
     } else {
-      setFavorites((prevFavorites) => [...prevFavorites, product]);
+      const newFavoriteList = [...favoriteList, favoriteProduct];
+      dispatch(setFavoriteList(newFavoriteList));
     }
   }
+
+  function handleAddToCart(product: Product) {
+    if (isInCart) {
+      const newCart = cartList.filter((cartItem) => cartItem.id !== product.id);
+      dispatch(setCartList(newCart));
+    } else {
+      const newCart = [...cartList, product];
+      dispatch(setCartList(newCart));
+    }
+  }
+
   return (
-    <Box>
-      <IconButton
+    <Box sx={{}}>
+      <Button
+        sx={{
+          color: "white",
+          backgroundColor: "hsla(0, 0%, 4%, 0.9)",
+          "&:hover": {
+            backgroundColor: "hsla(0, 0%, 6%, 0.75)",
+          },
+          borderRadius: "20px",
+          width: "7rem",
+          height: "3rem",
+        }}
+        variant="contained"
         aria-label="add to favorites"
-        color={isAlreadyFavorite ? "error" : "default"}
-        onClick={handleAddToFavorites}
+        onClick={() => handleAddToFavorites(product)}
       >
-        <FavoriteIcon />
-      </IconButton>
-      <IconButton
+        <FavoriteIcon sx={{ color: isAlreadyFavorite ? "hsla(359, 66%, 54%, 1)" : "white" }} />
+      </Button>
+      <Button
+        sx={{
+          color: "white",
+          backgroundColor: "hsla(0, 0%, 1%, 0.9)",
+          "&:hover": {
+            backgroundColor: "hsla(0, 0%, 6%, 0.75)",
+          },
+          borderRadius: "20px",
+          width: "13rem",
+          height: "3rem",
+          margin: "3rem 2rem",
+        }}
+        variant="contained"
         aria-label="add to cart"
-        color={isInCart ? "primary" : "default"}
-        onClick={handleAddToCart}
+        onClick={() => handleAddToCart(product)}
       >
-        <ShoppingCartIcon />
-      </IconButton>
+        {isInCart ? (
+          <Typography sx={{ color: "white" }}>Remove from cart</Typography>
+        ) : (
+          <Typography sx={{ color: "white" }}>Add to cart</Typography>
+        )}
+      </Button>
     </Box>
   );
 }

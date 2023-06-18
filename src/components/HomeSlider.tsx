@@ -30,8 +30,8 @@ export default function HomeSlider({ product }: Props) {
   }
   return (
     <Slider {...settings}>
-      {product.images.map((image) => (
-        <div className="slide_img_container">
+      {product.images.map((image, index) => (
+        <div key={index} className="slide_img_container">
           <img className="slide_img" src={image} alt="Promo" />
         </div>
       ))}
