@@ -1,11 +1,13 @@
+import React from "react";
 import { addToCart, deleteFromCart, setFavoriteList } from "../../redux/slices/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import ProductSnackBar from "../ProductSnackBar";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Box, Button, Typography } from "@mui/material";
 
 import { Product } from "../../types/type";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 
 type Props = {
   product: Product;
@@ -13,6 +15,7 @@ type Props = {
 
 export default function ProductDetailInfo({ product }: Props) {
   const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
   const favoriteList = useSelector((state: RootState) => state.productsList.favoritesList);
   const cartList = useSelector((state: RootState) => state.productsList.cartList);
   const isAlreadyFavorite = favoriteList.some((favoriteItem) => favoriteItem.id === product.id);
@@ -25,6 +28,7 @@ export default function ProductDetailInfo({ product }: Props) {
     } else {
       const newFavoriteList = [...favoriteList, favoriteProduct];
       dispatch(setFavoriteList(newFavoriteList));
+      setOpen(true);
     }
   }
 
@@ -77,6 +81,7 @@ export default function ProductDetailInfo({ product }: Props) {
           <Typography sx={{ color: "white" }}>Add to cart</Typography>
         )}
       </Button>
+      <ProductSnackBar open={open} setOpen={setOpen} product={product} />
     </Box>
   );
 }

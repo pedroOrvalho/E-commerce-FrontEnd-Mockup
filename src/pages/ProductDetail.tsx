@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchProductDetailData } from "../redux/thunk/productThunk";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,8 +7,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import ProductVerticalSlider from "../components/ProductDetail/ProductVerticalSlider";
 import ProductDetailInfo from "../components/ProductDetail/ProductDetailInfo";
 
-import { Box, createTheme, ThemeProvider } from "@mui/material";
-
+import { Box, Button, createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
   typography: {
@@ -35,27 +34,44 @@ export default function ProductDetail() {
   } else
     return (
       <ThemeProvider theme={theme}>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            height: "40rem",
-            padding: "5rem 12rem",
-            justifyContent: "center",
-          }}
-        >
-          <Box sx={{ height: "100%", width: "100%" }}>
-            <ProductVerticalSlider product={product} />
-          </Box>
+        <Box>
+          <Link to="/products" className="link-no-style ">
+            <Button
+              sx={{
+                color: "white",
+                backgroundColor: "black",
+                "&:hover": {
+                  backgroundColor: "gray",
+                },
+                borderRadius: "20px",
+              }}
+              variant="contained"
+            >
+              Shop Now
+            </Button>
+          </Link>
           <Box
             sx={{
-              height: "100%",
-              width: "100%",
-              textAlign: "center",
-              display: "flex",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              height: "40rem",
+              padding: "5rem 12rem",
+              justifyContent: "center",
             }}
           >
-            <ProductDetailInfo product={product} />
+            <Box sx={{ height: "100%", width: "100%" }}>
+              <ProductVerticalSlider product={product} />
+            </Box>
+            <Box
+              sx={{
+                height: "100%",
+                width: "100%",
+                textAlign: "center",
+                display: "flex",
+              }}
+            >
+              <ProductDetailInfo product={product} />
+            </Box>
           </Box>
         </Box>
       </ThemeProvider>

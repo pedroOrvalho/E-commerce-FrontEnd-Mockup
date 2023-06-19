@@ -12,6 +12,8 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { CartProduct, Product } from "../../types/type";
+import ProductSnackBar from "../ProductSnackBar";
+import { useState } from "react";
 
 type Props = {
   cartProduct: CartProduct;
@@ -44,6 +46,7 @@ const theme = createTheme({
 
 export default function CartItem({ cartProduct }: Props) {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState<boolean>(false);
   const favoriteList = useSelector((state: RootState) => state.productsList.favoritesList);
   const cartItem = cartProduct.cartProduct.product;
   const cartItemQty = cartProduct.cartProduct.quantity;
@@ -56,6 +59,7 @@ export default function CartItem({ cartProduct }: Props) {
     } else {
       const newFavoriteList = [...favoriteList, favoriteProduct];
       dispatch(setFavoriteList(newFavoriteList));
+      setOpen(true);
     }
   }
 
@@ -111,6 +115,7 @@ export default function CartItem({ cartProduct }: Props) {
             </IconButton>
           </Box>
         </Box>
+        <ProductSnackBar open={open} setOpen={setOpen} product={cartItem} />
       </Box>
     </ThemeProvider>
   );

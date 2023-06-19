@@ -64,7 +64,7 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 
 **Logic Requirements (8 points)**
 - [√] Fetch and display all products
-- [ ] Search products by name
+- [√] Search products by name
 - [√] Get product details
 - [√] Show product details when image or button is clicked
 - [√] Add products to Favorite page
@@ -75,17 +75,17 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 **Extra requirements (2 points)**
 - [ ] Implement sorting by product name/price
 - [ ] Allow theme customization
-- [ ] Any other feature/functionality you added
+- [√] Any other feature/functionality you added
 
 **Styling Requirements (4 points)**
-- [ ] Use `Nunito` font-family
+- [√] Use `Nunito` font-family
 - [ ] Design Navbar and Footer
-- [ ] Show message when a product is added to Favorite page
+- [√] Show message when a  product is added to Favorite page
 
 **Code style Requirements (6 points)**
-- [ ] Follow naming convention
-- [ ] Maintain clear file structure
-- [ ] Divide project into small components
-- [ ] Write clean code (no `console.log`, no dead code)
-- [ ] Format code using Prettier - Code formatter
-- [ ] Separate imports from own files and package imports
+- [√] Follow naming convention
+- [√] Maintain clear file structure
+- [√] Divide project into small components
+- [√] Write clean code (no `console.log`, no dead code)
+- [√] Format code using Prettier - Code formatter
+- [√] Separate imports from own files and package imports
