@@ -1,4 +1,4 @@
-import { setCartList, setFavoriteList } from "../../redux/slices/productsSlice";
+import { addToCart, deleteFromCart, setFavoriteList } from "../../redux/slices/productsSlice";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Box, Button, Typography } from "@mui/material";
@@ -16,7 +16,7 @@ export default function ProductDetailInfo({ product }: Props) {
   const favoriteList = useSelector((state: RootState) => state.productsList.favoritesList);
   const cartList = useSelector((state: RootState) => state.productsList.cartList);
   const isAlreadyFavorite = favoriteList.some((favoriteItem) => favoriteItem.id === product.id);
-  const isInCart = cartList.some((item) => item.id === product.id);
+  const isInCart = cartList.some((item) => item.cartProduct.product.id === product.id);
 
   function handleAddToFavorites(favoriteProduct: Product) {
     if (isAlreadyFavorite) {
@@ -29,13 +29,11 @@ export default function ProductDetailInfo({ product }: Props) {
   }
 
   function handleAddToCart(product: Product) {
-    if (isInCart) {
-      const newCart = cartList.filter((cartItem) => cartItem.id !== product.id);
-      dispatch(setCartList(newCart));
-    } else {
-      const newCart = [...cartList, product];
-      dispatch(setCartList(newCart));
-    }
+    dispatch(addToCart(product));
+  }
+
+  function handleDeleteFromCart(product: Product) {
+    dispatch(deleteFromCart(product));
   }
 
   return (
@@ -71,7 +69,7 @@ export default function ProductDetailInfo({ product }: Props) {
         }}
         variant="contained"
         aria-label="add to cart"
-        onClick={() => handleAddToCart(product)}
+        onClick={isInCart ? () => handleDeleteFromCart(product) : () => handleAddToCart(product)}
       >
         {isInCart ? (
           <Typography sx={{ color: "white" }}>Remove from cart</Typography>

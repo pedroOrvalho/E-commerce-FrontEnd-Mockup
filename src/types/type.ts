@@ -9,3 +9,10 @@ export type Product = {
   thumbnail: string;
   images: string[];
 };
+
+export type CartProduct = {
+  cartProduct: {
+    product: Product;
+    quantity: number;
+  };
+};

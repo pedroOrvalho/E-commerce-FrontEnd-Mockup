@@ -1,12 +1,20 @@
-import { Box, IconButton, ThemeProvider, Typography, createTheme } from "@mui/material";
-import { Product } from "../../types/type";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import {
+  increment,
+  decrement,
+  setFavoriteList,
+  deleteFromCart,
+} from "../../redux/slices/productsSlice";
 
+import { Box, Button, IconButton, ThemeProvider, Typography, createTheme } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import CartCheckout from "./CartCheckout";
+
+import { CartProduct, Product } from "../../types/type";
 
 type Props = {
-  cartItem: Product;
+  cartProduct: CartProduct;
 };
 
 const theme = createTheme({
@@ -34,7 +42,27 @@ const theme = createTheme({
   },
 });
 
-export default function CartItem({ cartItem }: Props) {
+export default function CartItem({ cartProduct }: Props) {
+  const dispatch = useDispatch();
+  const favoriteList = useSelector((state: RootState) => state.productsList.favoritesList);
+  const cartItem = cartProduct.cartProduct.product;
+  const cartItemQty = cartProduct.cartProduct.quantity;
+  const isAlreadyFavorite = favoriteList.some((favoriteItem) => favoriteItem.id === cartItem.id);
+
+  function handleAddToFavorites(favoriteProduct: Product) {
+    if (isAlreadyFavorite) {
+      const newFavoriteList = favoriteList.filter((favorite) => favorite.id !== favoriteProduct.id);
+      dispatch(setFavoriteList(newFavoriteList));
+    } else {
+      const newFavoriteList = [...favoriteList, favoriteProduct];
+      dispatch(setFavoriteList(newFavoriteList));
+    }
+  }
+
+  function handleDeleteFromCart(product: Product) {
+    dispatch(deleteFromCart(product));
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -68,16 +96,18 @@ export default function CartItem({ cartItem }: Props) {
         >
           <Typography>Qty</Typography>
           <Box>
-            <button> + </button>
-            counter
-            <button> - </button>
+            <Button onClick={() => dispatch(increment(cartItem))}> + </Button>
+            {cartItemQty}
+            <Button onClick={() => dispatch(decrement(cartItem))}> - </Button>
           </Box>
           <Box>
-            <IconButton>
-              <FavoriteIcon />
+            <IconButton onClick={() => handleAddToFavorites(cartItem)}>
+              <FavoriteIcon
+                sx={{ color: isAlreadyFavorite ? "hsla(359, 66%, 54%, 1)" : "hsla(0, 0%, 40%, 1)" }}
+              />
             </IconButton>
-            <IconButton>
-              <DeleteForeverIcon />
+            <IconButton onClick={() => handleDeleteFromCart(cartItem)}>
+              <DeleteForeverIcon sx={{ color: "hsla(0, 0%, 40%, 1)" }} />
             </IconButton>
           </Box>
         </Box>

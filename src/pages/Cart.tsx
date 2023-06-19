@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import CartItem from "../components/cart/CartItem";
 import CartCheckout from "../components/cart/CartCheckout";
 
@@ -9,14 +9,13 @@ export default function Cart() {
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }} minHeight={"90vh"}>
       <Box sx={{ minWidth: "40rem" }}>
-        {cartList.map((cartItem) => (
-          <CartItem cartItem={cartItem} />
+        {cartList.map((cartItem, index) => (
+          <CartItem key={index} cartProduct={cartItem} />
         ))}
       </Box>
-      <Box sx={{ minWidth: "20rem", minHeight: "30rem", textAlign: "center" }}>
+      <Paper variant="outlined" sx={{ marginLeft: "1rem", minWidth: "25rem", maxHeight: "20rem" }}>
         <CartCheckout />
-      </Box>
+      </Paper>
     </Box>
   );
 }
-

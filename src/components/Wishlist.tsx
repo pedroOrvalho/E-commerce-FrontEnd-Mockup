@@ -12,15 +12,15 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import { Product } from "../types/type";
 import { Badge, IconButton } from "@mui/material";
-import { setCartList, setFavoriteList } from "../redux/slices/productsSlice";
+import { addToCart, setFavoriteList, deleteFromFavorite } from "../redux/slices/productsSlice";
 
 export default function Wishlist() {
   const [open, setOpen] = React.useState<boolean>(false);
   const favoritesList = useSelector((state: RootState) => state.productsList.favoritesList);
-  const cartList = useSelector((state: RootState) => state.productsList.cartList);
   const dispatch = useDispatch();
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -28,10 +28,13 @@ export default function Wishlist() {
   };
 
   function handleAddToCart(product: Product) {
-    const newCart = [...cartList, product];
-    dispatch(setCartList(newCart));
+    dispatch(addToCart(product));
     const newFavoriteList = favoritesList.filter((cartItem) => cartItem.id !== product.id);
     dispatch(setFavoriteList(newFavoriteList));
+  }
+
+  function handleRemoveFromFavorite(product: Product) {
+    dispatch(deleteFromFavorite(product));
   }
   const list = (
     <Box
@@ -46,6 +49,9 @@ export default function Wishlist() {
             <ListItemButton>
               <img src={favorite.images[0]} alt="pic" width={"50px"}></img>
               <ListItemText sx={{ marginLeft: "10px" }} primary={favorite.title} />
+              <IconButton>
+                <DeleteForeverIcon onClick={() => handleRemoveFromFavorite(favorite)} />
+              </IconButton>
               <IconButton onClick={() => handleAddToCart(favorite)}>
                 <AddShoppingCartIcon />
               </IconButton>
