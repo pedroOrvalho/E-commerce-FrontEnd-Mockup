@@ -16,9 +16,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 });
 
 export default function ProductSnackBar({ open, setOpen, product }: Props) {
-  const handleClick = () => {
-    setOpen(true);
-  };
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
@@ -28,7 +25,7 @@ export default function ProductSnackBar({ open, setOpen, product }: Props) {
   };
 
   return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
       <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
         {`${product.title} as been added to favorites`}
       </Alert>
