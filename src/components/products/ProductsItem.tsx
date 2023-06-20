@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Box, Paper } from "@mui/material";
 
-import { Product } from "../types/type";
+import { Product } from "../../types/type";
 
 type Props = {
   product: Product;
@@ -42,11 +42,7 @@ export default function ProductsItem({ product }: Props) {
         <Link to={`/products/${product.id}`}>
           <Box sx={{ margin: "1rem 1rem" }}>
             <div className="image-container">
-              <img
-                className="product_img"
-                src={product.thumbnail}
-                alt={product.description}
-              />
+              <img className="product_img" src={product.thumbnail} alt={product.description} />
             </div>
           </Box>
         </Link>

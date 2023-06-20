@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import ProductsItem from "../components/ProductsItem";
+import ProductsItem from "../components/products/ProductsItem";
 
 import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +39,7 @@ export default function Products() {
   return (
     <div>
       <div>
-      <SearchForm userSearch={userSearch} setUserSearch={setUserSearch} />
+        <SearchForm userSearch={userSearch} setUserSearch={setUserSearch} />
       </div>
       <div className="products_container">
         {searchProductsList.map((product) => (
