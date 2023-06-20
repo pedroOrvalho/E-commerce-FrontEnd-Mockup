@@ -50,6 +50,7 @@ export default function SearchForm({ userSearch, setUserSearch }: Props) {
           marginLeft: "0.5rem",
         }}
         variant="contained"
+        onClick={handleClear}
       >
         <Typography variant="button">CLEAR</Typography>
       </Button>
