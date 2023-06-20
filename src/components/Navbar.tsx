@@ -1,4 +1,5 @@
 import logo from "../images/Black logo - no background.png";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Link } from "react-router-dom";
@@ -9,6 +10,7 @@ import {
   Badge,
   Box,
   Button,
+  IconButton,
   Paper,
   Stack,
   Switch,
@@ -79,33 +81,42 @@ const theme = createTheme({
   },
 });
 
-export default function Navbar() {
+type Props = {
+  onThemeChange: () => void;
+  darkMode: boolean;
+};
+
+export default function Navbar({ onThemeChange, darkMode }: Props) {
   const cartListLength = useSelector((state: RootState) => state.productsList.cartList.length);
+  const navbarStyle = {
+    backgroundColor: darkMode ? "hsla(0, 0%, 0%, 1)" : "hsla(240, 1%, 85%, 0.691)",
+  };
 
   return (
-    <Box
-      component="nav"
-      role="navigation"
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        "& > :not(style)": {
-          m: 1,
-          width: 1,
-          height: 90,
-          marginTop: 0,
-        },
-        alignItems: "center",
-      }}
-    >
-      <Paper
+    <ThemeProvider theme={theme}>
+      <Box
+        style={navbarStyle}
+        component="nav"
+        role="navigation"
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          flexWrap: "wrap",
+          "& > :not(style)": {
+            m: 1,
+            width: 1,
+            height: 90,
+            marginTop: 0,
+          },
           alignItems: "center",
         }}
       >
-        <ThemeProvider theme={theme}>
+        <Paper
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <div className="nav_logo_container">
             <img className="logo" src={logo} alt="logo" />
           </div>
@@ -123,19 +134,22 @@ export default function Navbar() {
               <Button variant="text">About Us</Button>
             </Link>
           </Stack>
-        </ThemeProvider>
-        <Stack direction={"row"} spacing={0} alignItems={"center"} marginRight={"2rem"}>
-          <Wishlist />
-          <Button sx={{ paddingLeft: "0", marginRight: "1rem" }}>
-            <Link to="/products/checkout" className="link-no-style ">
-              <Badge badgeContent={cartListLength} sx={{ color: "black" }}>
-                <ShoppingCartCheckoutIcon sx={{ color: "black" }} />
-              </Badge>
-            </Link>
-          </Button>
-          <MaterialUISwitch />
-        </Stack>
-      </Paper>
-    </Box>
+
+          <Stack direction={"row"} spacing={0} alignItems={"center"} marginRight={"2rem"}>
+            <Wishlist />
+            <Button sx={{ paddingLeft: "0", marginRight: "1rem" }}>
+              <Link to="/products/checkout" className="link-no-style ">
+                <Badge badgeContent={cartListLength} sx={{ color: "black" }}>
+                  <ShoppingCartCheckoutIcon sx={{ color: "black" }} />
+                </Badge>
+              </Link>
+            </Button>
+            <IconButton onClick={onThemeChange}>
+              <MaterialUISwitch />
+            </IconButton>
+          </Stack>
+        </Paper>
+      </Box>
+    </ThemeProvider>
   );
 }
