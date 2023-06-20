@@ -3,7 +3,7 @@ import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
-import { Product } from "../types/type";
+import { Product } from "../../types/type";
 
 type Props = {
   open: boolean;
@@ -16,7 +16,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 });
 
 export default function ProductSnackBar({ open, setOpen, product }: Props) {
-
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;

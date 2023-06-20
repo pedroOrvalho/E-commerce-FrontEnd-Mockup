@@ -7,12 +7,14 @@ import {
   deleteFromCart,
 } from "../../redux/slices/productsSlice";
 
-import { Box, Button, IconButton, ThemeProvider, Typography, createTheme } from "@mui/material";
+import { Box, IconButton, Paper, ThemeProvider, Typography, createTheme } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 import { CartProduct, Product } from "../../types/type";
-import ProductSnackBar from "../ProductSnackBar";
+import ProductSnackBar from "../products/ProductSnackBar";
 import { useState } from "react";
 
 type Props = {
@@ -69,54 +71,78 @@ export default function CartItem({ cartProduct }: Props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          display: "flex",
-          paddingBottom: "2rem",
-          borderBottom: "1px solid ",
-        }}
-      >
-        <img src={cartItem.thumbnail} alt={cartItem.description} width={"200px"} height={"150px"} />
-        <Box sx={{ margin: "1rem 2rem", width: "100%" }}>
-          <Typography variant="body1">{cartItem.title}</Typography>
-          <Typography variant="body2">
-            <span>Brand:</span> {cartItem.brand}
-          </Typography>
-          <Typography variant="body2">
-            <span>Category:</span> {cartItem.category}
-          </Typography>
-          <Typography sx={{ marginTop: "1rem" }} variant="body1">
-            {cartItem.price} kr
-          </Typography>
-        </Box>
+      <Paper variant="outlined">
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
+            padding: "2rem 0",
           }}
         >
-          <Typography>Qty</Typography>
-          <Box>
-            <Button onClick={() => dispatch(increment(cartItem))}> + </Button>
-            {cartItemQty}
-            <Button onClick={() => dispatch(decrement(cartItem))}> - </Button>
+          <img
+            src={cartItem.thumbnail}
+            alt={cartItem.description}
+            width={"200px"}
+            height={"150px"}
+          />
+          <Box sx={{ margin: "1rem 2rem", width: "100%" }}>
+            <Typography variant="body1">{cartItem.title}</Typography>
+            <Typography variant="body2">
+              <span>Brand:</span> {cartItem.brand}
+            </Typography>
+            <Typography variant="body2">
+              <span>Category:</span> {cartItem.category}
+            </Typography>
+            <Typography sx={{ marginTop: "1rem" }} variant="body1">
+              {cartItem.price} kr
+            </Typography>
           </Box>
-          <Box>
-            <IconButton onClick={() => handleAddToFavorites(cartItem)}>
-              <FavoriteIcon
-                sx={{ color: isAlreadyFavorite ? "hsla(359, 66%, 54%, 1)" : "hsla(0, 0%, 40%, 1)" }}
-              />
-            </IconButton>
-            <IconButton onClick={() => handleDeleteFromCart(cartItem)}>
-              <DeleteForeverIcon sx={{ color: "hsla(0, 0%, 40%, 1)" }} />
-            </IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="subtitle1" marginBottom={"-10px"}>
+              Qty
+            </Typography>
+            <Box>
+              <IconButton
+                onClick={() => dispatch(increment(cartItem))}
+                sx={{
+                  margin: "10px 10px",
+                }}
+              >
+                <AddCircleIcon />
+              </IconButton>
+              {cartItemQty}
+              <IconButton
+                onClick={() => dispatch(decrement(cartItem))}
+                sx={{
+                  margin: "10px 10px",
+                }}
+              >
+                <RemoveCircleIcon />
+              </IconButton>
+            </Box>
+            <Box>
+              <IconButton onClick={() => handleAddToFavorites(cartItem)}>
+                <FavoriteIcon
+                  sx={{
+                    color: isAlreadyFavorite ? "hsla(359, 66%, 54%, 1)" : "hsla(0, 0%, 40%, 1)",
+                  }}
+                />
+              </IconButton>
+              <IconButton onClick={() => handleDeleteFromCart(cartItem)}>
+                <DeleteForeverIcon sx={{ color: "hsla(0, 0%, 40%, 1)" }} />
+              </IconButton>
+            </Box>
           </Box>
+          <ProductSnackBar open={open} setOpen={setOpen} product={cartItem} />
         </Box>
-        <ProductSnackBar open={open} setOpen={setOpen} product={cartItem} />
-      </Box>
+      </Paper>
     </ThemeProvider>
   );
 }

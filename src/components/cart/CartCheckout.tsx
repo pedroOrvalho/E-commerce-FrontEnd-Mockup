@@ -60,7 +60,7 @@ export default function CartCheckout() {
           >
             <Typography>Estimated Delivery & Handling</Typography>
             <Typography>
-              <span>{cartList.length === 0 ? 0 : "89 kr"}</span>
+              <span>{total === 0 ? 0 : "89 kr"}</span>
             </Typography>
           </Box>
         </Box>
@@ -74,7 +74,7 @@ export default function CartCheckout() {
         >
           <Typography variant="h6">Total</Typography>
           <Typography>
-            <span>{cartList.length === 0 ? 0 : total + 89} kr</span>
+            <span>{total === 0 ? 0 : total + 89} kr</span>
           </Typography>
         </Box>
         <Box

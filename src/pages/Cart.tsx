@@ -7,7 +7,7 @@ import CartCheckout from "../components/cart/CartCheckout";
 export default function Cart() {
   const cartList = useSelector((state: RootState) => state.productsList.cartList);
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }} minHeight={"90vh"}>
+    <Box sx={{ display: "flex", justifyContent: "center", margin: "4rem 0" }} minHeight={"90vh"}>
       <Box sx={{ minWidth: "40rem" }}>
         {cartList.map((cartItem, index) => (
           <CartItem key={index} cartProduct={cartItem} />

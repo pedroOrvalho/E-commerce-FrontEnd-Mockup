@@ -2,7 +2,7 @@ import React from "react";
 import { addToCart, deleteFromCart, setFavoriteList } from "../../redux/slices/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import ProductSnackBar from "../ProductSnackBar";
+import ProductSnackBar from "../products/ProductSnackBar";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Box, Button, Typography } from "@mui/material";
