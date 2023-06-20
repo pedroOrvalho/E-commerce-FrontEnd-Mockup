@@ -8,6 +8,7 @@ import ProductVerticalSlider from "../components/ProductDetail/ProductVerticalSl
 import ProductDetailInfo from "../components/ProductDetail/ProductDetailInfo";
 
 import { Box, Button, createTheme, ThemeProvider } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const theme = createTheme({
   typography: {
@@ -34,7 +35,7 @@ export default function ProductDetail() {
   } else
     return (
       <ThemeProvider theme={theme}>
-        <Box>
+        <Box sx={{margin:"1.5rem 3rem"}}>
           <Link to="/products" className="link-no-style ">
             <Button
               sx={{
@@ -47,7 +48,7 @@ export default function ProductDetail() {
               }}
               variant="contained"
             >
-              Shop Now
+            <ArrowBackIcon/>
             </Button>
           </Link>
           <Box
@@ -55,7 +56,7 @@ export default function ProductDetail() {
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               height: "40rem",
-              padding: "5rem 12rem",
+              padding: "2rem 12rem",
               justifyContent: "center",
             }}
           >

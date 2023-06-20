@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
@@ -21,21 +21,38 @@ export default function SearchForm({ userSearch, setUserSearch }: Props) {
   }
 
   return (
-    <div className="searchForm_container">
-      <div className="searchForm_content">
+    <Box
+      sx={{ display: "flex", justifyContent: "center", textAlign: "center", padding: "1rem 0rem" }}
+    >
+      <Box>
         <TextField
+          sx={{ width: "15rem" }}
           value={userSearch}
-          id="standard-basic"
-          label="Enter an country..."
-          variant="standard"
+          id="outlined-basic"
+          label="Search..."
+          variant="outlined"
           onChange={handleChange}
+          InputProps={{
+            style: {
+              borderRadius: "30px",
+            },
+          }}
         />
-      </div>
-      <div className="form_clear">
-        <Button variant="text" onClick={handleClear}>
-          Clear
-        </Button>
-      </div>
-    </div>
+      </Box>
+      <Button
+        sx={{
+          color: "white",
+          backgroundColor: "black",
+          "&:hover": {
+            backgroundColor: "gray",
+          },
+          borderRadius: "30px",
+          marginLeft: "0.5rem",
+        }}
+        variant="contained"
+      >
+        <Typography variant="button">CLEAR</Typography>
+      </Button>
+    </Box>
   );
 }
