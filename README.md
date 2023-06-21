@@ -62,6 +62,10 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
    ![](./screenshots/cart.png)
 
 
+## Deploy link
+https://tiny-salmiakki-9f7b98.netlify.app/
+
+
 **Logic Requirements (8 points)**
 - [√] Fetch and display all products
 - [√] Search products by name
@@ -73,13 +77,13 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 - [√] Deploy the project
 
 **Extra requirements (2 points)**
-- [ ] Implement sorting by product name/price
-- [ ] Allow theme customization
+- [√] Implement sorting by product name/price
+- [√] Allow theme customization
 - [√] Any other feature/functionality you added
 
 **Styling Requirements (4 points)**
 - [√] Use `Nunito` font-family
-- [ ] Design Navbar and Footer
+- [√] Design Navbar and Footer
 - [√] Show message when a  product is added to Favorite page
 
 **Code style Requirements (6 points)**
