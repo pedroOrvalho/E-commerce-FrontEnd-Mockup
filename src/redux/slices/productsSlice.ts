@@ -99,7 +99,7 @@ const productsSlice = createSlice({
       const existingCartItem = state.cartList.find((item) => item.cartProduct.product.id === id);
 
       if (existingCartItem) {
-        if (existingCartItem.cartProduct.quantity > 0) {
+        if (existingCartItem.cartProduct.quantity > 1) {
           existingCartItem.cartProduct.quantity -= 1;
         }
       }
